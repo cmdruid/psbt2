@@ -1,0 +1,63 @@
+{
+  "name": "@cmdcode/psbt2",
+  "version": "0.0.1",
+  "description": "A simple PSBT v2 library written in typescript.",
+  "author": "Christopher Scott",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmdruid/psbt2.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "unpkg": "./dist/script.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "lint": "eslint . --ext .ts",
+    "load": "tsx --tsconfig ./test/tsconfig.json",
+    "release": "yarn lint && yarn test && yarn build",
+    "scratch": "yarn load test/scratch.ts",
+    "test": "yarn tsc && yarn load test/tape.ts | tap-spec"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.28",
+    "@types/tape": "^5.6.4",
+    "@typescript-eslint/eslint-plugin": "^7.3.0",
+    "@typescript-eslint/parser": "^7.3.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "rollup": "^4.13.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.7.5",
+    "tslib": "^2.6.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@cmdcode/buff": "^2.2.5",
+    "@scrow/tapscript": "^2.2.3"
+  }
+}
