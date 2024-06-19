@@ -1,6 +1,6 @@
 {
   "name": "@cmdcode/psbt2",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple PSBT v2 library written in typescript.",
   "author": "Christopher Scott",
   "license": "MIT",
