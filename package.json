@@ -1,6 +1,6 @@
 {
   "name": "@cmdcode/psbt2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple PSBT v2 library written in typescript.",
   "author": "Christopher Scott",
   "license": "MIT",
@@ -58,7 +58,6 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@cmdcode/buff": "^2.2.5",
-    "@scrow/tapscript": "^2.2.3"
+    "@cmdcode/buff": "^2.2.5"
   }
 }
