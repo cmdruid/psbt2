@@ -38,12 +38,9 @@ export default {
     {
       file: 'dist/script.js',
       format: 'iife',
-      name: 'escrow_core',
+      name: 'psbt2',
       plugins: [terser()],
-      sourcemap: true,
-      globals : {
-        'ws' : 'WebSocket'
-      }
+      sourcemap: true
     }
   ],
   external : ['ws'],
