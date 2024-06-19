@@ -46,7 +46,7 @@ export function decode_keypair (
     // Set the label as the identifier.
     label = pdat.read(plen).str
     // Set the new key as the remaining data.
-    key   = pdat.read(pdat.size).hex 
+    key   = pdat.read(pdat.size).hex
   }
   // Get the length of the value.
   const vlen  = stream.read_varint()

@@ -1,6 +1,6 @@
 import { Buff } from '@cmdcode/buff'
 
-import { consume_keypairs, get_keypair } from './keypair.js' 
+import { consume_keypairs, get_keypair } from './keypair.js'
 import { PSBTData, PSBTKeyPair }         from '@/types.js'
 
 import CONST from '@/const.js'

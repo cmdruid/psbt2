@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A simple PSBT v2 library written in typescript.",
   "author": "Christopher Scott",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/cmdruid/psbt2.git"

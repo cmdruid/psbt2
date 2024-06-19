@@ -5,7 +5,7 @@ import CONST from '@/const.js'
 
 export function encode_psbt (psbtdata : PSBTData) {
   const { global, inputs, outputs } = psbtdata
-  
+
   let encoded = CONST.PSBT_MAGIC_BYTES
 
   for (const kp of global) {
