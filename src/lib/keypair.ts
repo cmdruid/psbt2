@@ -1,6 +1,7 @@
 import { Buff, Stream } from '@cmdcode/buff'
-import { PSBTRecord }   from '@/types.js'
+import { PSBTGlobalKeys, PSBTRecord }   from '@/types.js'
 import { assert }       from '@/util/index.js'
+import { decode_tx } from './tx.js'
 
 export function consume_keypairs <T extends Record<number, string>> (
   stream : Stream,
@@ -118,4 +119,28 @@ export function get_key_type <T extends Record<number, string>> (
   const ent = Object.entries(keymap).find(e => e[1] === label)
   assert.exists(ent, 'type does not exist for label: ' + label)
   return Number(ent[0])
+}
+
+export function get_io_counts (global : PSBTRecord<PSBTGlobalKeys>[]) {
+   // Set the version of the PSBT.
+   const version = (has_keypair(global, 'VERSION'))
+   ? Number(get_keypair(global, 'VERSION'))
+   : 1
+   //
+   if (version === 2) {
+    // Get the input and output counts.
+    const vin_kp = get_keypair(global, 'INPUT_COUNT')
+    const out_kp = get_keypair(global, 'OUTPUT_COUNT')
+    const vin_ct = Buff.bytes(vin_kp.value).num
+    const out_ct = Buff.bytes(out_kp.value).num
+    return [ vin_ct, out_ct ]
+  } else {
+    // Parse the unsigned transaction.
+    const keypair = get_keypair(global, 'UNSIGNED_TX')
+    const txdata  = decode_tx(keypair.value as string)
+    // Set the input and output counts.
+    const vin_ct = txdata.vin.length
+    const out_ct = txdata.vout.length
+    return [ vin_ct, out_ct ]
+  }
 }
