@@ -1,8 +1,14 @@
-import { Buff }   from '@cmdcode/buff'
-import PSBTSchema from '@/schema.js'
+import { Buff }      from '@cmdcode/buff'
+import { decode_tx } from './tx.js'
+import PSBTSchema    from '@/schema.js'
 
-import { PSBTData, PSBTRecord }          from '@/types.js'
-import { consume_keypairs, get_keypair } from './keypair.js'
+import { PSBTData, PSBTRecord } from '@/types.js'
+
+import {
+  consume_keypairs,
+  get_keypair,
+  has_keypair
+} from './keypair.js'
 
 import CONST from '@/const.js'
 
@@ -16,10 +22,26 @@ export function decode_psbt (psbthex : string) : PSBTData {
     throw new Error('invalid magic for psbt: ' + magic)
   }
   // Parse the global keys list.
-  const global = consume_keypairs(stream, CONST.PSBT_GLOBAL_TYPE_MAP)
-  // Get the input and output counts.
-  const vin_count = get_input_count(global)
-  const out_count = get_output_count(global)
+  const global  = consume_keypairs(stream, CONST.PSBT_GLOBAL_TYPE_MAP)
+  // Set the version of the PSBT.
+  const version = (has_keypair(global, 'VERSION'))
+    ? Number(get_keypair(global, 'VERSION'))
+    : 1
+  // Define variables for input and output count.
+  let vin_count, out_count
+  // Parse input and output count based on PSBT version.
+  if (version === 2) {
+    // Get the input and output counts.
+    vin_count = get_input_count(global)
+    out_count = get_output_count(global)
+  } else {
+    // Parse the unsigned transaction.
+    const keypair = get_keypair(global, 'UNSIGNED_TX')
+    const txdata  = decode_tx(keypair.value as string)
+    // Set the input and output counts.
+    vin_count = txdata.vin.length
+    out_count = txdata.vout.length
+  }
   // Define the input keys list.
   const inputs = []
   // For number of inputs we expect:

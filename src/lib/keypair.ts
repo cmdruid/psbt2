@@ -94,6 +94,14 @@ export function encode_keypair <T extends Record<number, string>> (
   return Buff.join([ key_vint, key_bytes, value_vint, value_bytes ]).hex
 }
 
+export function has_keypair <M> (
+  keys  : PSBTRecord<M>[],
+  label : string
+) {
+  const kp = keys.find(e => e.label === label)
+  return kp !== undefined
+}
+
 export function get_keypair <M> (
   keys  : PSBTRecord<M>[],
   label : string
