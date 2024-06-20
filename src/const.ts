@@ -1,6 +1,6 @@
 const PSBT_MAGIC_BYTES = '70736274ff'
 
-const PSBT_GLOBAL_TYPE_MAP : Record<number, string> = {
+const PSBT_GLOBAL_TYPE_MAP = {
   0x00 : 'UNSIGNED_TX',
   0x01 : 'XPUB',
   0x02 : 'TX_VERSION',
@@ -9,7 +9,7 @@ const PSBT_GLOBAL_TYPE_MAP : Record<number, string> = {
   0x05 : 'OUTPUT_COUNT',
   0x06 : 'TX_MODIFIABLE',
   0xFB : 'VERSION'
-}
+} as const
 
 const PSBT_INPUT_TYPE_MAP = {
   0x00 : 'NON_WITNESS_UTXO',
@@ -37,7 +37,7 @@ const PSBT_INPUT_TYPE_MAP = {
   0x16 : 'TAP_BIP32_DERIVATION',
   0x17 : 'TAP_INTERNAL_KEY',
   0x18 : 'TAP_MERKLE_ROOT'
-}
+} as const
 
 const PSBT_OUTPUT_TYPE_MAP = {
   0x00 : 'REDEEM_SCRIPT',
@@ -48,10 +48,17 @@ const PSBT_OUTPUT_TYPE_MAP = {
   0x05 : 'TAP_INTERNAL_KEY',
   0x06 : 'TAP_TREE',
   0x07 : 'TAP_BIP32_DERIVATION'
-}
+} as const
+
+const PSBT_GLOBAL_KEYS = [ ...Object.values(PSBT_GLOBAL_TYPE_MAP) ] as [string, ...string[]]
+const PSBT_INPUT_KEYS  = [ ...Object.values(PSBT_INPUT_TYPE_MAP)  ] as [string, ...string[]]
+const PSBT_OUTPUT_KEYS = [ ...Object.values(PSBT_OUTPUT_TYPE_MAP) ] as [string, ...string[]]
 
 export default {
   PSBT_MAGIC_BYTES,
+  PSBT_GLOBAL_KEYS,
+  PSBT_INPUT_KEYS,
+  PSBT_OUTPUT_KEYS,
   PSBT_GLOBAL_TYPE_MAP,
   PSBT_INPUT_TYPE_MAP,
   PSBT_OUTPUT_TYPE_MAP
