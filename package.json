@@ -58,6 +58,7 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@cmdcode/buff": "^2.2.5"
+    "@cmdcode/buff": "^2.2.5",
+    "@scrow/tapscript": "^2.2.3"
   }
 }
